@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../src/search-client.rb'
 
 Given("the user searches google") do
   begin 
-    @results = SearchClient.search(%w{cucumber ruby google})
+    @results = SearchClient.new(%w{cucumber ruby google}).links
   rescue SearchClientError => e
     @error = e
   end
@@ -18,7 +18,7 @@ end
 
 Given("the user searches google with no input") do 
   begin 
-    @results = SearchClient.search([])
+    @results = SearchClient.new([]).links
   rescue SearchClientError => e
     @error = e
   end

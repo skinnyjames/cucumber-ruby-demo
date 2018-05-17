@@ -10,9 +10,9 @@ class SearchClientResponse
 end
 
 class SearchClient
-  attr_accessor :links
+  attr_reader :links
 
-  def self.search(params) 
+  def initialize(params) 
     mechanize = Mechanize.new
     page = mechanize.get("http://google.com/search?q='#{params.join(' ')}'")
     links = page.links_with(href: /^\/url/)
@@ -24,14 +24,14 @@ class SearchClient
       SearchClientResponse.new(url)
     end
 
-    readable_links
+    @links = readable_links || []
   end
 
-  def initialize(results) 
-    @links = results
+  def to_html
+    @links.collect do |link|
+      "<a href='#{link.url}'>#{link.url}</a>"    
+    end
   end
-
 end
 
 class SearchClientError < StandardError; end
-
