@@ -28,9 +28,10 @@ class SearchClient
   end
 
   def to_html
-    @links.collect do |link|
+    html = @links.collect do |link|
       "<a href='#{link.url}'>#{link.url}</a>"    
     end
+    html.join('')
   end
 end
 
