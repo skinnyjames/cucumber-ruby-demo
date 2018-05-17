@@ -20,7 +20,7 @@ class SearchClient
     raise SearchClientError, "No Results" if links.length === 0
 
     readable_links = links.collect do |link| 
-      url = link.href[/.*\?q=(.*|^&).*/, 1].split('&')[0] 
+      url = link.href[/.*\?q=(.*)/, 1].split('&')[0] 
       SearchClientResponse.new(url)
     end
 
